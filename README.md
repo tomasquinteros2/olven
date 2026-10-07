@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OLVÉN — The Art of Fragrance
 
-## Getting Started
+Catálogo web de perfumes con Next.js (App Router), TypeScript, Tailwind CSS y Supabase.
 
-First, run the development server:
+## 1. Instalar y correr
 
 ```bash
+npm install
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrí [http://localhost:3000](http://localhost:3000). El panel de carga está en `/admin`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 2. Variables de entorno
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+En `.env.local`:
 
-## Learn More
+```
+NEXT_PUBLIC_SUPABASE_URL=https://TU-PROYECTO.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-anon-key
+SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
+```
 
-To learn more about Next.js, take a look at the following resources:
+Las encontrás en **Supabase → Project Settings → API**.
+`SUPABASE_SERVICE_ROLE_KEY` queda solo en el servidor y se usa para subir imágenes e insertar filas. No la expongas en el cliente.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 3. Crear la tabla `perfumes`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Entrá a **SQL Editor**.
+2. Pegá y ejecutá `supabase/schema.sql`.
 
-## Deploy on Vercel
+Eso crea:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Columna     | Tipo        | Notas                          |
+|-------------|-------------|--------------------------------|
+| `id`        | `uuid`      | PK, `gen_random_uuid()`        |
+| `name`      | `text`      | Nombre del perfume             |
+| `category`  | `text`      | Una de las 6 categorías (slug) |
+| `image_url` | `text`      | URL pública del Storage        |
+| `created_at`| `timestamptz` | Default `now()`              |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 4. Bucket de Storage `perfumes_images`
+
+El mismo script SQL crea el bucket. Si preferís hacerlo a mano:
+
+1. **Storage → New bucket**
+2. Name: `perfumes_images`
+3. Public bucket: **ON**
+4. Guardá
+5. En **Policies**, permití `SELECT` e `INSERT` para `bucket_id = 'perfumes_images'`
+
+## 5. Rutas
+
+- `/` home con las 6 categorías
+- `/catalogo/[categoria]` grilla filtrada
+- `/admin` formulario para cargar perfumes
