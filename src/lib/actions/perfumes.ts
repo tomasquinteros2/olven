@@ -25,10 +25,16 @@ function validateImage(image: FormDataEntryValue | null) {
 export async function createPerfume(_prev: CreatePerfumeState, formData: FormData): Promise<CreatePerfumeState> {
   const name = String(formData.get("name") ?? "").trim();
   const subtitle = String(formData.get("subtitle") ?? "").trim() || null;
+  const priceValue = String(formData.get("price") ?? "").trim();
+  const price = priceValue ? Number(priceValue) : null;
+  const numericPrice = Number(priceValue);
+  const occasion = String(formData.get("occasion") ?? "").trim() || null;
+  const notes = String(formData.get("notes") ?? "").split(",").map((note) => note.trim()).filter(Boolean);
   const category = String(formData.get("category") ?? "").trim();
   const subcategoryId = String(formData.get("subcategory_id") ?? "").trim();
   const image = formData.get("image");
   if (!name) return { ok: false, message: "Ingresá el nombre del perfume." };
+  if (priceValue && (!Number.isFinite(numericPrice) || numericPrice < 0)) return { ok: false, message: "Ingresá un precio válido." };
   if (!category || !subcategoryId) return { ok: false, message: "Seleccioná una categoría y una subcategoría." };
   const imageError = validateImage(image);
   if (imageError) return { ok: false, message: imageError };
@@ -42,7 +48,7 @@ export async function createPerfume(_prev: CreatePerfumeState, formData: FormDat
     );
     if (uploadError) return { ok: false, message: `Error al subir la imagen: ${uploadError.message}` };
     const publicUrl = supabase.storage.from(BUCKET).getPublicUrl(filePath).data.publicUrl;
-    const { error: insertError } = await supabase.from("perfumes").insert({ name, subtitle, category, subcategory_id: subcategoryId, image_url: publicUrl });
+    const { error: insertError } = await supabase.from("perfumes").insert({ name, subtitle, category, subcategory_id: subcategoryId, price, occasion, notes, image_url: publicUrl });
     if (insertError) {
       const cleanup = await supabase.storage.from(BUCKET).remove([filePath]);
       return { ok: false, message: `Error al guardar el perfume: ${insertError.message}${cleanup.error ? `. También falló la limpieza: ${cleanup.error.message}` : ""}` };
@@ -59,10 +65,16 @@ export async function updatePerfume(_prev: CreatePerfumeState, formData: FormDat
   const id = String(formData.get("id") ?? "").trim();
   const name = String(formData.get("name") ?? "").trim();
   const subtitle = String(formData.get("subtitle") ?? "").trim() || null;
+  const priceValue = String(formData.get("price") ?? "").trim();
+  const price = priceValue ? Number(priceValue) : null;
+  const numericPrice = Number(priceValue);
+  const occasion = String(formData.get("occasion") ?? "").trim() || null;
+  const notes = String(formData.get("notes") ?? "").split(",").map((note) => note.trim()).filter(Boolean);
   const category = String(formData.get("category") ?? "").trim();
   const subcategoryId = String(formData.get("subcategory_id") ?? "").trim();
   const image = formData.get("image");
   if (!id || !name || !category || !subcategoryId) return { ok: false, message: "Completá nombre, categoría y subcategoría." };
+  if (priceValue && (!Number.isFinite(numericPrice) || numericPrice < 0)) return { ok: false, message: "Ingresá un precio válido." };
   if (image instanceof File && image.size > 0) {
     const imageError = validateImage(image);
     if (imageError) return { ok: false, message: imageError };
@@ -79,7 +91,7 @@ export async function updatePerfume(_prev: CreatePerfumeState, formData: FormDat
     if (error) return { ok: false, message: `Error al subir la nueva imagen: ${error.message}` };
     imageUrl = supabase.storage.from(BUCKET).getPublicUrl(newPath).data.publicUrl;
   }
-  const { error: updateError } = await supabase.from("perfumes").update({ name, subtitle, category, subcategory_id: subcategoryId, image_url: imageUrl }).eq("id", id);
+  const { error: updateError } = await supabase.from("perfumes").update({ name, subtitle, category, subcategory_id: subcategoryId, price, occasion, notes, image_url: imageUrl }).eq("id", id);
   if (updateError) {
     if (newPath) await supabase.storage.from(BUCKET).remove([newPath]);
     return { ok: false, message: `No se pudo actualizar el perfume: ${updateError.message}` };

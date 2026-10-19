@@ -25,18 +25,21 @@ SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
 Las encontrás en **Supabase → Project Settings → API**.
 `SUPABASE_SERVICE_ROLE_KEY` queda solo en el servidor y se usa para subir imágenes e insertar filas. No la expongas en el cliente.
 
-## 3. Crear la tabla `perfumes`
+## 3. Crear las tablas del catálogo
 
 1. Entrá a **SQL Editor**.
 2. Pegá y ejecutá `supabase/schema.sql`.
 
-Eso crea:
+Eso crea y actualiza:
 
 | Columna     | Tipo        | Notas                          |
 |-------------|-------------|--------------------------------|
 | `id`        | `uuid`      | PK, `gen_random_uuid()`        |
 | `name`      | `text`      | Nombre del perfume             |
-| `category`  | `text`      | Una de las 6 categorías (slug) |
+| `category`  | `text`        | Categoría principal (slug) |
+| `price`     | `numeric`     | Precio en pesos argentinos |
+| `occasion`  | `text`        | Ocasión de uso |
+| `notes`     | `text[]`      | Notas olfativas |
 | `image_url` | `text`      | URL pública del Storage        |
 | `created_at`| `timestamptz` | Default `now()`              |
 
@@ -52,6 +55,10 @@ El mismo script SQL crea el bucket. Si preferís hacerlo a mano:
 
 ## 5. Rutas
 
-- `/` home con las 6 categorías
+- `/` home con las categorías Árabes, Diseñador y Réplica
 - `/catalogo/[categoria]` grilla filtrada
 - `/admin` formulario para cargar perfumes
+
+En cada categoría se puede buscar por nombre, subtítulo, ocasión o nota, y filtrar
+por subcategoría, género, ocasión y nota. Las subcategorías iniciales son
+Masculino, Femenino y Unisex se gestionan como subcategorías.

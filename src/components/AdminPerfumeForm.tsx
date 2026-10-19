@@ -43,6 +43,24 @@ export function AdminPerfumeForm({ categories, subcategories }: { categories: Ca
         />
       </div>
 
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div className="space-y-2">
+          <label htmlFor="price" className="block text-sm tracking-wide text-[#5d534c]">
+            Precio <span className="text-xs text-[#8d8178]">(ARS, opcional)</span>
+          </label>
+          <input id="price" name="price" type="number" min="0" step="0.01" placeholder="Ej. 85000" className="w-full rounded-full border border-[#d8cfc4] bg-white/80 px-4 py-3 text-[#2b2420] outline-none focus:border-[#8d8178] focus:ring-2 focus:ring-[#8d8178]/30" />
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="occasion" className="block text-sm tracking-wide text-[#5d534c]">Ocasión de uso</label>
+          <input id="occasion" name="occasion" type="text" placeholder="Ej. Noche, oficina, diario" className="w-full rounded-full border border-[#d8cfc4] bg-white/80 px-4 py-3 text-[#2b2420] outline-none focus:border-[#8d8178] focus:ring-2 focus:ring-[#8d8178]/30" />
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="notes" className="block text-sm tracking-wide text-[#5d534c]">Notas</label>
+          <input id="notes" name="notes" type="text" placeholder="Ej. Oud, vainilla, ámbar" className="w-full rounded-full border border-[#d8cfc4] bg-white/80 px-4 py-3 text-[#2b2420] outline-none focus:border-[#8d8178] focus:ring-2 focus:ring-[#8d8178]/30" />
+          <p className="text-xs text-[#8d8178]">Separá las notas con comas.</p>
+        </div>
+      </div>
+
       <div className="space-y-2">
         <label htmlFor="subtitle" className="block text-sm tracking-wide text-[#5d534c]">
           Subtítulo <span className="text-xs text-[#8d8178]">(opcional)</span>

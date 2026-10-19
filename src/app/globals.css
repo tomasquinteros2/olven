@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4eee6;
-  --foreground: #2b2420;
+  --background: #f4f2ee;
+  --foreground: #292725;
 }
 
 @theme inline {
@@ -19,7 +19,27 @@ body {
 
 .home-canvas {
   background:
-    radial-gradient(1200px 700px at 12% 8%, rgba(255, 255, 255, 0.55), transparent 55%),
-    radial-gradient(900px 600px at 88% 92%, rgba(214, 196, 176, 0.35), transparent 50%),
-    linear-gradient(180deg, #f7f1e9 0%, #efe6d9 55%, #f4eee6 100%);
+    radial-gradient(900px 600px at 8% 0%, rgba(255, 255, 255, 0.9), transparent 58%),
+    radial-gradient(800px 600px at 100% 70%, rgba(202, 178, 143, 0.16), transparent 60%),
+    linear-gradient(135deg, #f8f7f4 0%, #f0eeea 100%);
+}
+
+.category-card {
+  background: linear-gradient(135deg, #5a5148, #1e1d1b);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 14px 40px rgba(40, 35, 29, 0.08);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.category-card-2 {
+  background: linear-gradient(135deg, #3e4140, #161817);
+}
+
+.category-card-3 {
+  background: linear-gradient(135deg, #8b7050, #30271f);
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 55px rgba(40, 35, 29, 0.18);
 }

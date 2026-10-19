@@ -1,28 +1,7 @@
 export const CATEGORIES = [
-  {
-    slug: "disenador-masculino",
-    label: "Catalogo diseñador masculino",
-  },
-  {
-    slug: "disenador-femenino",
-    label: "Catalogo diseñador femenino",
-  },
-  {
-    slug: "alternativo-masculino",
-    label: "Catalogo alternativo masculino",
-  },
-  {
-    slug: "arabe-masculino",
-    label: "Catalogo arabe masculino",
-  },
-  {
-    slug: "arabe-unisex",
-    label: "Catalogo arabe unisex",
-  },
-  {
-    slug: "arabe-femenino",
-    label: "Catalogo arabe femenino",
-  },
+  { slug: "arabes", label: "Árabes" },
+  { slug: "disenador", label: "Diseñador" },
+  { slug: "replica", label: "Réplica" },
 ] as const;
 
 export type CategorySlug = (typeof CATEGORIES)[number]["slug"];

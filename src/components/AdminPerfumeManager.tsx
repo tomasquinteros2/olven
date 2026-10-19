@@ -29,6 +29,9 @@ function PerfumeEditor({ perfume, categories, subcategories }: {
           <input type="hidden" name="id" value={String(perfume.id)} />
           <input name="name" required defaultValue={perfume.name} className="rounded-full border border-[#d8cfc4] bg-white/80 px-4 py-2 outline-none" />
           <input name="subtitle" defaultValue={perfume.subtitle ?? ""} placeholder="Subtítulo (opcional)" className="rounded-full border border-[#d8cfc4] bg-white/80 px-4 py-2 outline-none" />
+          <input name="price" type="number" min="0" step="0.01" defaultValue={perfume.price ?? ""} placeholder="Precio (ARS)" className="rounded-full border border-[#d8cfc4] bg-white/80 px-4 py-2 outline-none" />
+          <input name="occasion" defaultValue={perfume.occasion ?? ""} placeholder="Ocasión (ej. noche)" className="rounded-full border border-[#d8cfc4] bg-white/80 px-4 py-2 outline-none" />
+          <input name="notes" defaultValue={perfume.notes.join(", ")} placeholder="Notas separadas por comas" className="rounded-full border border-[#d8cfc4] bg-white/80 px-4 py-2 outline-none" />
           <select name="category" required value={category} onChange={(event) => setCategory(event.target.value)} className="rounded-full border border-[#d8cfc4] bg-white/80 px-4 py-2 outline-none">
             {categories.map((item) => <option key={item.id} value={item.slug}>{item.label}</option>)}
           </select>

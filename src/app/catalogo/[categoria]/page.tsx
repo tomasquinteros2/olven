@@ -22,15 +22,15 @@ export default async function CatalogPage({ params }: CatalogPageProps) {
 
   return (
     <main className="home-canvas relative min-h-screen">
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-10 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 py-7 sm:px-10 lg:px-16">
         <Link
           href="/"
-          className="text-xs tracking-[0.28em] text-[#6d6259] uppercase transition hover:text-[#2b2420]"
+          className="inline-flex items-center gap-3 text-[10px] tracking-[0.3em] text-[#67635e] uppercase transition hover:text-[#a18150]"
         >
-          ← Inicio
+          <span aria-hidden="true">←</span> Volver a OLVÉN
         </Link>
 
-        <header className="mt-8 mb-12 text-center">
+        <header className="mt-12 mb-14 border-b border-[#2e2c29]/10 pb-12">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3 text-left">
               <Image
@@ -38,21 +38,22 @@ export default async function CatalogPage({ params }: CatalogPageProps) {
                 alt="OLVÉN"
                 width={64}
                 height={64}
-                className="h-14 w-14 rounded-full object-cover sm:h-16 sm:w-16"
+                className="h-12 w-12 rounded-full object-cover sm:h-14 sm:w-14"
               />
-              <span className="font-serif text-3xl tracking-[0.16em] text-[#1c1917] sm:text-5xl">
+              <span className="font-serif text-3xl tracking-[0.1em] text-[#292725] sm:text-4xl">
                 OLVÉN
               </span>
             </div>
-            <p className="font-serif text-sm italic tracking-[0.08em] text-[#6d6259] sm:text-xl">
-              the art of fragance
+            <p className="hidden text-[10px] tracking-[0.3em] text-[#67635e] uppercase sm:block">
+              The art of fragrance
             </p>
           </div>
-          <h1 className="mt-3 font-serif text-4xl tracking-[0.14em] text-[#1c1917] sm:text-5xl">
+          <p className="mt-14 text-[10px] tracking-[0.35em] text-[#a18150] uppercase">Colección OLVÉN</p>
+          <h1 className="mt-3 font-serif text-6xl tracking-[-0.02em] text-[#292725] sm:text-8xl">
             {catalog.category.label}
           </h1>
           {catalog.category.description ? (
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 tracking-wide text-[#6d6259]">
+            <p className="mt-5 max-w-xl text-sm leading-7 tracking-wide text-[#67635e]">
               {catalog.category.description}
             </p>
           ) : null}
