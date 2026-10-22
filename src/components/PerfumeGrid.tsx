@@ -68,35 +68,35 @@ export function PerfumeGrid({ perfumes, subcategories }: { perfumes: Perfume[]; 
   }
 
   return (
-    <div className="space-y-14">
-      <section aria-label="Buscar y filtrar perfumes" className="border-y border-[#2e2c29]/10 py-5">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+    <div className="space-y-12 sm:space-y-14">
+      <section aria-label="Buscar y filtrar perfumes" className="border-y border-[#2e2c29]/10 py-4 sm:py-5">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="relative w-full lg:max-w-md">
             <span className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 text-[#a18150]" aria-hidden="true">⌕</span>
-            <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Buscar en la colección..." aria-label="Buscar perfumes" className="w-full border-b border-[#2e2c29]/20 bg-transparent py-3 pl-7 text-sm outline-none transition placeholder:text-[#96918a] focus:border-[#a18150]" />
+            <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Buscar en la colección..." aria-label="Buscar perfumes" className="min-h-12 w-full border-b border-[#2e2c29]/20 bg-transparent py-3 pl-7 text-sm outline-none transition placeholder:text-[#96918a] focus:border-[#a18150]" />
           </div>
           <details className="group relative">
             <summary className="flex cursor-pointer list-none items-center gap-3 text-[10px] font-medium tracking-[0.25em] text-[#292725] uppercase [&::-webkit-details-marker]:hidden">
-              <span className="border border-[#2e2c29]/20 px-4 py-3 transition group-open:border-[#a18150]">Filtrar <span className="ml-3 text-[#a18150]">+</span></span>
+              <span className="flex min-h-12 w-full items-center justify-between border border-[#2e2c29]/20 px-4 transition group-open:border-[#a18150]">Filtrar <span className="ml-3 text-[#a18150]">+</span></span>
             </summary>
-            <div className="mt-4 grid gap-3 border border-[#2e2c29]/10 bg-[#f8f7f4] p-4 sm:grid-cols-3 lg:absolute lg:right-0 lg:z-20 lg:w-[560px] lg:shadow-[0_20px_50px_rgba(40,35,29,0.12)]">
-              <select value={subcategory} onChange={(event) => setSubcategory(event.target.value)} aria-label="Filtrar por subcategoría o género" className="border border-[#2e2c29]/15 bg-transparent px-3 py-3 text-xs outline-none focus:border-[#a18150]">
+            <div className="mt-3 grid gap-3 border border-[#2e2c29]/10 bg-[#f8f7f4] p-3 sm:grid-cols-3 sm:p-4 lg:absolute lg:right-0 lg:z-20 lg:w-[560px] lg:shadow-[0_20px_50px_rgba(40,35,29,0.12)]">
+              <select value={subcategory} onChange={(event) => setSubcategory(event.target.value)} aria-label="Filtrar por subcategoría o género" className="min-h-12 border border-[#2e2c29]/15 bg-transparent px-3 py-3 text-xs outline-none focus:border-[#a18150]">
                 <option value="">Subcategoría</option>
                 {subcategories.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
               </select>
-              <select value={occasion} onChange={(event) => setOccasion(event.target.value)} aria-label="Filtrar por ocasión" className="border border-[#2e2c29]/15 bg-transparent px-3 py-3 text-xs outline-none focus:border-[#a18150]">
+              <select value={occasion} onChange={(event) => setOccasion(event.target.value)} aria-label="Filtrar por ocasión" className="min-h-12 border border-[#2e2c29]/15 bg-transparent px-3 py-3 text-xs outline-none focus:border-[#a18150]">
                 <option value="">Ocasión</option>
                 {occasions.map((item) => <option key={item} value={item}>{item}</option>)}
               </select>
-              <select value={note} onChange={(event) => setNote(event.target.value)} aria-label="Filtrar por nota" className="border border-[#2e2c29]/15 bg-transparent px-3 py-3 text-xs outline-none focus:border-[#a18150]">
+              <select value={note} onChange={(event) => setNote(event.target.value)} aria-label="Filtrar por nota" className="min-h-12 border border-[#2e2c29]/15 bg-transparent px-3 py-3 text-xs outline-none focus:border-[#a18150]">
                 <option value="">Nota olfativa</option>
                 {notes.map((item) => <option key={item} value={item}>{item}</option>)}
               </select>
-              <button type="button" onClick={clearFilters} className="border border-[#a18150] px-3 py-3 text-[10px] tracking-[0.2em] text-[#292725] uppercase transition hover:bg-[#a18150] hover:text-white sm:col-span-3">Limpiar filtros</button>
+              <button type="button" onClick={clearFilters} className="min-h-12 border border-[#a18150] px-3 py-3 text-[10px] tracking-[0.2em] text-[#292725] uppercase transition hover:bg-[#a18150] hover:text-white sm:col-span-3">Limpiar filtros</button>
             </div>
           </details>
         </div>
-        <div className="mt-5 flex gap-2 overflow-x-auto pb-1">
+        <div className="mt-4 -mx-1 flex gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <button type="button" onClick={() => setSubcategory("")} className={`whitespace-nowrap px-4 py-2 text-[10px] tracking-[0.18em] uppercase transition ${!subcategory ? "bg-[#292725] text-white" : "border border-[#2e2c29]/15 text-[#67635e] hover:border-[#a18150]"}`}>Todo</button>
           {subcategories.map((item) => (
             <button type="button" key={item.id} onClick={() => setSubcategory(item.id)} className={`whitespace-nowrap px-4 py-2 text-[10px] tracking-[0.18em] uppercase transition ${subcategory === item.id ? "bg-[#292725] text-white" : "border border-[#2e2c29]/15 text-[#67635e] hover:border-[#a18150]"}`}>{item.label}</button>
@@ -112,10 +112,10 @@ export function PerfumeGrid({ perfumes, subcategories }: { perfumes: Perfume[]; 
         </div>
       ) : null}
 
-      <div className="space-y-16">
+      <div className="space-y-12 sm:space-y-16">
       {groups.map((group, index) => (
         <section key={group.id} className="scroll-mt-8">
-          <div className="mb-8 flex items-center gap-4">
+          <div className="mb-6 flex items-center gap-3 sm:mb-8 sm:gap-4">
             <span
               aria-hidden="true"
               className="hidden h-px flex-1 bg-[#2e2c29]/15 sm:block"
@@ -124,7 +124,7 @@ export function PerfumeGrid({ perfumes, subcategories }: { perfumes: Perfume[]; 
               <p className="mb-1 text-[10px] tracking-[0.3em] text-[#a18150] uppercase">
                 {String(index + 1).padStart(2, "0")} · Selección
               </p>
-              <h2 className="font-serif text-3xl tracking-[0.02em] text-[#292725] sm:text-4xl">
+              <h2 className="font-serif text-3xl leading-none tracking-[0.02em] text-[#292725] sm:text-4xl">
                 {group.label}
               </h2>
               <p className="mt-1 text-[10px] tracking-[0.18em] text-[#67635e] uppercase">
@@ -136,7 +136,7 @@ export function PerfumeGrid({ perfumes, subcategories }: { perfumes: Perfume[]; 
               className="hidden h-px flex-1 bg-[#2e2c29]/15 sm:block"
             />
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
             {group.perfumes.map((perfume) => (
               <PerfumeCard key={perfume.id} perfume={perfume} />
             ))}
