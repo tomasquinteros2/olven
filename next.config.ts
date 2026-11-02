@@ -7,13 +7,8 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "*.supabase.co",
-        pathname: "/storage/v1/object/public/**",
-      },
-    ],
+    loader: "custom",
+    loaderFile: "./cloudinary-loader.ts",
   },
   turbopack: {
     rules: {
